@@ -5,6 +5,7 @@ forward FunktionSniperTimer(playerid);
 forward SniperSpielVorschau(playerid);
 forward SniperSpielStart(playerid);
 forward SniperSpielWaffe(playerid);
+forward SniperTextDrawsLaden(playerid);
 
 #define HELLBLAU 0x00FFFFFF
 #define GRAUWEISS 0xEEEEEEFF
@@ -24,7 +25,7 @@ new TargetActor;
 new SniperTimerID;
 new Float:RandomActorSpawns[50][3] =
 {
-  {1588.9060,-1258.7468,277.8810},
+    {1588.9060,-1258.7468,277.8810},
 	{1581.4366,-1260.9514,277.8815},
 	{1574.6543,-1263.1600,277.8828},
 	{1568.1713,-1261.8356,277.8828},
@@ -148,7 +149,7 @@ public FunktionSniperTimer(playerid)
 	return 1;
 }
 
-public OnPlayerConnect(playerid)
+public SniperTextDrawsLaden(playerid)
 {
 	//Textdraws Sniper
 	SniperTextDraw[playerid][0] = CreatePlayerTextDraw(playerid,2.000000, 117.199905, "_~n~~n~~n~~n~~n~~n~~n~~n~~n~~n~~n~~n~~n~~n~~n~~n~~n~~n~~n~");
@@ -640,8 +641,6 @@ public OnPlayerConnect(playerid)
 	PlayerTextDrawFont(playerid,SniperTextDraw[playerid][43], 1);
 	PlayerTextDrawSetProportional(playerid,SniperTextDraw[playerid][43], 1);
 	PlayerTextDrawSetShadow(playerid,SniperTextDraw[playerid][43], 0);
-	
-	InSS[playerid]=0;
 	return 1;
 }
 
@@ -675,6 +674,7 @@ ocmd:joinsniper(playerid,params[])
 		SetPlayerPos(playerid,1544.6697,-1340.0653,328.2372);
 		SetPlayerFacingAngle(playerid,0.5248);
 		SetPlayerVirtualWorld(playerid,2);
+		CallLocalFunction("SniperTextDrawsLaden","i",playerid);
 		InSS[playerid] = 1;
 		GetPlayerName(playerid,SniperName[playerid],sizeof(SniperName));
 		if(AnzahlSniper == 0)
@@ -774,6 +774,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if(AnzahlSniper < 11)
 			{
 				SetPlayerPos(playerid,1544.6697,-1340.0653,328.2372);
+				CallLocalFunction("SniperTextDrawsLaden","i",playerid);
 		 		SetPlayerFacingAngle(playerid,0.5248);
 		 		SetPlayerVirtualWorld(playerid,2);
 				InSS[playerid] = 1;
