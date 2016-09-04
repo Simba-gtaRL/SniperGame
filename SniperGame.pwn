@@ -649,8 +649,8 @@ public OnPlayerDisconnect(playerid, reason)
 	InSS[playerid]=0;
 	SniperName[playerid] = "Frei";
 	SniperPunkte[playerid] = 0;
+	SniperPID[SniperID[playerid]] = -2;
 	SniperID[playerid] = -1;
-	SniperPID[playerid] = -2;
     	SetPlayerTeam(playerid, 0);
 	return 1;
 }
