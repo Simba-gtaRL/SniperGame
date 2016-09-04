@@ -671,6 +671,11 @@ ocmd:joinsniper(playerid,params[])
 {
 	if(InSS[playerid] == 0)
 	{
+		if(AnzahlSniper == 0)
+		{
+		    SendClientMessage(playerid,HELLBLAU,"Derzeit ist kein Sniper-Spiel geöffnet");
+		    return 1;
+		}
 		SetPlayerPos(playerid,1544.6697,-1340.0653,328.2372);
 		SetPlayerFacingAngle(playerid,0.5248);
 		SetPlayerVirtualWorld(playerid,2);
