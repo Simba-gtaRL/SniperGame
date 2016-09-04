@@ -25,7 +25,7 @@ new TargetActor;
 new SniperTimerID;
 new Float:RandomActorSpawns[50][3] =
 {
-    {1588.9060,-1258.7468,277.8810},
+    	{1588.9060,-1258.7468,277.8810},
 	{1581.4366,-1260.9514,277.8815},
 	{1574.6543,-1263.1600,277.8828},
 	{1568.1713,-1261.8356,277.8828},
@@ -83,8 +83,8 @@ new Float:RandomActorSpawns[50][3] =
 
 public OnGameModeInit()
 {
-    Sniper_Spiel = CreatePickup(1313,1,1369.9866,-949.9156,34.1931,-1);
-    Create3DTextLabel("Sniper",GRAUWEISS,1369.9866,-949.9156,34.5000,30,0,0);
+   	Sniper_Spiel = CreatePickup(1313,1,1369.9866,-949.9156,34.1931,-1);
+   	Create3DTextLabel("Sniper",GRAUWEISS,1369.9866,-949.9156,34.5000,30,0,0);
 	return 1;
 }
 
@@ -102,15 +102,15 @@ public FunktionSniperTimer(playerid)
 	Sniper_Timer--;
 	if(Sniper_Timer == 0)
 	{
-        Sniper_Timer = 180;
-        KillTimer(SniperTimerID);
-        new var = 1;
+        	Sniper_Timer = 180;
+        	KillTimer(SniperTimerID);
+        	new var = 1;
 		for(new i=1;i<14;i++)
 		{
-            if(SniperPunkte[SniperPID[i]] > SniperPunkte[SniperPID[var]])
-            {
+            		if(SniperPunkte[SniperPID[i]] > SniperPunkte[SniperPID[var]])
+        		{
  				var = i;
-            }
+            		}
 		}
 		new string2[128];
 		format(string2,sizeof(string2),"%s hat die Runde mit %i Punkten gewonnen",SniperName[SniperPID[var]],SniperPunkte[SniperPID[var]]);
@@ -143,7 +143,7 @@ public FunktionSniperTimer(playerid)
 			{
 			    DestroyActor(ActorIDs[a]);
 			}
-            DestroyActor(TargetActor);
+            	DestroyActor(TargetActor);
 		}
 	}
 	return 1;
@@ -651,7 +651,7 @@ public OnPlayerDisconnect(playerid, reason)
 	SniperPunkte[playerid] = 0;
 	SniperID[playerid] = -1;
 	SniperPID[playerid] = -2;
-    SetPlayerTeam(playerid, 0);
+    	SetPlayerTeam(playerid, 0);
 	return 1;
 }
 
@@ -788,7 +788,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 			    		DestroyActor(ActorIDs[i]);
 					}
-            		DestroyActor(TargetActor);
+            				DestroyActor(TargetActor);
 					new string[24+MAX_PLAYER_NAME];
 					new Nachricht[128] = "hat eine Sniper-Runde eröffnet";
 					format(string,sizeof(string),"%s %s",SniperName[playerid],Nachricht);
@@ -869,7 +869,7 @@ public SniperSpielVorschau(playerid)
 
 public SniperSpielWaffe(playerid)
 {
-    GivePlayerWeapon(playerid,34,1000);
+    	GivePlayerWeapon(playerid,34,1000);
 	return 1;
 }
 
@@ -908,9 +908,9 @@ public OnPlayerGiveDamageActor(playerid, damaged_actorid, Float: amount, weaponi
 		GetActorPos(TargetActor,X,Y,Z);
 		if(X == VorschauX)
 		{
-		    if(Y == VorschauY)
+		    	if(Y == VorschauY)
 			{
-		        if(Z == VorschauZ)
+		        	if(Z == VorschauZ)
 				{
 					for(new i=0; i < 50; i++)
 					{
@@ -939,7 +939,7 @@ public OnPlayerGiveDamageActor(playerid, damaged_actorid, Float: amount, weaponi
 			{
 			    DestroyActor(ActorIDs[i]);
 			}
-            DestroyActor(TargetActor);
+            		DestroyActor(TargetActor);
 			if(InSS[playerid] == 1)
 			{
 				SetTimerEx("SniperSpielVorschau",1000,false,"i",playerid);
@@ -954,7 +954,7 @@ public OnPlayerGiveDamageActor(playerid, damaged_actorid, Float: amount, weaponi
 		}
 	}
 
-    new string[10];
+    	new string[10];
 	format(string,sizeof(string),"%i",SniperPunkte[playerid]);
 	for(new s=1;s<14;s++)
 	{
