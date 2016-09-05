@@ -914,17 +914,11 @@ public OnPlayerGiveDamageActor(playerid, damaged_actorid, Float: amount, weaponi
 		VorschauY = -1337.7959;
 		VorschauZ = 328.2183;
 		GetActorPos(TargetActor,X,Y,Z);
-		if(X == VorschauX)
+		if(X == VorschauX && Y == VorschauY && Z == VorschauZ)
 		{
-		    	if(Y == VorschauY)
+			for(new i=0; i < 50; i++)
 			{
-		        	if(Z == VorschauZ)
-				{
-					for(new i=0; i < 50; i++)
-					{
-					    SniperPunkte[playerid]--;
-					}
-				}
+			    SniperPunkte[playerid]--;
 			}
 		}
 		if (X != VorschauX)
