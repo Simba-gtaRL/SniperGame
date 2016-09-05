@@ -682,6 +682,10 @@ ocmd:joinsniper(playerid,params[])
 		    SendClientMessage(playerid,HELLBLAU,"Derzeit ist kein Sniper-Spiel geöffnet");
 		    return 1;
 		}
+		for (new i = 0; i < 13; i++)
+		{
+		    GetPlayerWeaponData(playerid,i,SniperWaffenInfo[playerid][i][0],SniperWaffenInfo[playerid][i][1]);
+		}
 		SetPlayerPos(playerid,1544.6697,-1340.0653,328.2372);
 		SetPlayerFacingAngle(playerid,0.5248);
 		SetPlayerVirtualWorld(playerid,2);
@@ -778,6 +782,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				CallLocalFunction("SniperTextDrawsLaden","i",playerid);
 		 		SetPlayerFacingAngle(playerid,0.5248);
 		 		SetPlayerVirtualWorld(playerid,2);
+		 		for (new i = 0; i < 13; i++)
+				{
+				    GetPlayerWeaponData(playerid,i,SniperWaffenInfo[playerid][i][0],SniperWaffenInfo[playerid][i][1]);
+				}
 				InSS[playerid] = 1;
 				SniperID[playerid] = 1+AnzahlSniper;
 				SniperPID[SniperID[playerid]] = playerid;
