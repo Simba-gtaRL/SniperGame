@@ -850,14 +850,14 @@ public SniperSpielVorschau(playerid)
 			}
 			if(ActorSkins[i]+1 == ActorSkins[k])
 			{
-			    ActorSkins[i]++;
-			    ActorSkins[i]++;
+			    	ActorSkins[i]++;
+			    	ActorSkins[i]++;
 			}
 			if(ActorSkins[i]+2 == ActorSkins[k])
 			{
-			    ActorSkins[i]++;
-			    ActorSkins[i]++;
-			    ActorSkins[i]++;
+			    	ActorSkins[i]++;
+			    	ActorSkins[i]++;
+			    	ActorSkins[i]++;
 			}
 		}
 		if(ActorSkins[i] == RandomTargetActorSkin)
@@ -913,26 +913,17 @@ public OnPlayerGiveDamageActor(playerid, damaged_actorid, Float: amount, weaponi
 		GetActorPos(TargetActor,X,Y,Z);
 		if(X == VorschauX && Y == VorschauY && Z == VorschauZ)
 		{
-			for(new i=0; i < 50; i++)
-			{
-			    SniperPunkte[playerid]--;
-			}
+			SniperPunkte[playerid] = SniperPunkte[playerid]-50;
 		}
 		if (X != VorschauX)
 		{
 			if(bodypart == 9) //Kopftreffer
 			{
-				for(new i=0; i < 100; i++)
-				{
-					SniperPunkte[playerid]++;
-				}
+				SniperPunkte[playerid] = SniperPunkte[playerid]+100;
 			}
 			if(bodypart != 9)
 			{
-				for(new i=0; i < 50; i++)
-				{
-					SniperPunkte[playerid]++;
-				}
+				SniperPunkte[playerid] = SniperPunkte[playerid]+50;
 			}
 			for(new i=0; i < 50; i++)
 			{
@@ -947,10 +938,7 @@ public OnPlayerGiveDamageActor(playerid, damaged_actorid, Float: amount, weaponi
 	}
 	else
 	{
-		for(new i=0; i < 50; i++)
-		{
-			SniperPunkte[playerid]--;
-		}
+		SniperPunkte[playerid] = SniperPunkte[playerid]-50;
 	}
 
     	new string[10];
