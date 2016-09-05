@@ -22,6 +22,7 @@ new SniperPunkte[MAX_PLAYERS] = 0;
 new ActorIDs[50];
 new ActorSkins[50];
 new TargetActor;
+new SniperWaffenInfo[MAX_PLAYERS][13][2];
 new Float:RandomActorSpawns[50][3] =
 {
     	{1588.9060,-1258.7468,277.8810},
@@ -105,6 +106,7 @@ public FunktionSniperTimer(playerid)
         	new var = 1;
 		for(new i=1;i<14;i++)
 		{
+            		if(SniperPID[i] == -2) continue;
             		if(SniperPunkte[SniperPID[i]] > SniperPunkte[SniperPID[var]])
             		{
  				var = i;
@@ -126,6 +128,10 @@ public FunktionSniperTimer(playerid)
 				SniperPunkte[SniperPID[k]] = 0;
 				AnzahlSniper = 0;
 				ResetPlayerWeapons(SniperPID[k]);
+				for(new w=0;w<13;w++)
+				{
+					GivePlayerWeapon(SniperPID[k],SniperWaffenInfo[SniperPID[k]][w][0],SniperWaffenInfo[SniperPID[k]][w][1]);
+				}
 				new iwas = 1+k;
 				if(iwas > 3 && iwas < 17) iwas = iwas+13;
 				PlayerTextDrawSetString(SniperPID[k],PlayerText:SniperTextDraw[SniperPID[k]][iwas],"Frei");
@@ -714,6 +720,10 @@ ocmd:leavesniper(playerid,params[])
 		SniperPunkte[playerid] = 0;
 		AnzahlSniper--;
 		ResetPlayerWeapons(playerid);
+		for(new w=0;w<13;w++)
+		{
+			GivePlayerWeapon(playerid,SniperWaffenInfo[playerid][w][0],SniperWaffenInfo[playerid][w][1]);
+		}
 		new iwas = 1+SniperID[playerid];
 		if(iwas > 3 && iwas < 17) iwas = iwas+13;
 		PlayerTextDrawSetString(playerid,PlayerText:SniperTextDraw[playerid][iwas],"Frei");
