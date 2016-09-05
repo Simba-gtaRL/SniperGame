@@ -15,7 +15,7 @@ new InSS[MAX_PLAYERS];
 new AnzahlSniper = 0;
 new SniperID[MAX_PLAYERS] = -1;
 new SniperPID[15] = -2;
-new Sniper_Timer = 180;
+new Sniper_Timer = 200;
 new PlayerText:SniperTextDraw[MAX_PLAYERS][44];
 new SniperName[MAX_PLAYERS][MAX_PLAYER_NAME];
 new SniperPunkte[MAX_PLAYERS] = 0;
@@ -101,7 +101,7 @@ public FunktionSniperTimer(playerid)
 	Sniper_Timer--;
 	if(Sniper_Timer == 0 || AnzahlSniper == 0)
 	{
-        	Sniper_Timer = 180;
+        	Sniper_Timer = 200;
         	new var = 1;
 		for(new i=1;i<14;i++)
 		{
