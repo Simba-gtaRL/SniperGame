@@ -877,7 +877,7 @@ public SniperSpielVorschau(playerid)
 
 public SniperSpielWaffe(playerid)
 {
-    	GivePlayerWeapon(playerid,34,1000);
+    	if(InSS[playerid] == 1)GivePlayerWeapon(playerid,34,1000);
 	return 1;
 }
 
