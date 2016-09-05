@@ -703,7 +703,7 @@ ocmd:joinsniper(playerid,params[])
 
 ocmd:leavesniper(playerid,params[])
 {
-	if(AnzahlSniper > 1 && InSS[playerid] == 1)
+	if(InSS[playerid] == 1)
 	{
 		SniperPunkte[playerid] = 0;
 		SetPlayerPos(playerid,1372.0284,-939.6686,34.1875);
