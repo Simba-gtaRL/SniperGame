@@ -893,13 +893,10 @@ public SniperSpielStart(playerid)
 		GetActorPos(ActorIDs[k],Xk,Yk,Zk);
 		new Float:Tx,Float:Ty,Float:Tz;
 		GetActorPos(TargetActor,Tx,Ty,Tz);
-		if(Tx == Xk)
-			{
-			    if(Ty == Yk)
-			    {
-					DestroyActor(ActorIDs[k]);
-			    }
-			}
+		if(Tx == Xk && Ty == Yk)
+		{
+			DestroyActor(ActorIDs[k]);
+		}
 	}
 	return 1;
 }
