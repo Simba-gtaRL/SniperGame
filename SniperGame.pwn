@@ -22,7 +22,6 @@ new SniperPunkte[MAX_PLAYERS] = 0;
 new ActorIDs[50];
 new ActorSkins[50];
 new TargetActor;
-new SniperTimerID;
 new Float:RandomActorSpawns[50][3] =
 {
     	{1588.9060,-1258.7468,277.8810},
@@ -100,15 +99,14 @@ public FunktionSniperTimer(playerid)
 		}
 	}
 	Sniper_Timer--;
-	if(Sniper_Timer == 0)
+	if(Sniper_Timer == 0 || AnzahlSniper == 0)
 	{
         	Sniper_Timer = 180;
-        	KillTimer(SniperTimerID);
         	new var = 1;
 		for(new i=1;i<14;i++)
 		{
             		if(SniperPunkte[SniperPID[i]] > SniperPunkte[SniperPID[var]])
-        		{
+            		{
  				var = i;
             		}
 		}
@@ -145,7 +143,9 @@ public FunktionSniperTimer(playerid)
 			}
             	DestroyActor(TargetActor);
 		}
+		return 1;
 	}
+	SetTimerEx("FunktionSniperTimer",1000,false,"i",playerid);
 	return 1;
 }
 
@@ -682,18 +682,6 @@ ocmd:joinsniper(playerid,params[])
 		CallLocalFunction("SniperTextDrawsLaden","i",playerid);
 		InSS[playerid] = 1;
 		GetPlayerName(playerid,SniperName[playerid],sizeof(SniperName));
-		if(AnzahlSniper == 0)
-		{
-			Sniper_Timer = 200;
-			SendClientMessage(playerid,HELLBLAU,"Das Spiel startet in 20 Sekunden");
-			new string[24+MAX_PLAYER_NAME];
-			new Nachricht[128] = "hat eine Sniper-Runde eröffnet";
-			format(string,sizeof(string),"%s %s",SniperName[playerid],Nachricht);
-			SendClientMessageToAll(HELLBLAU, string);
-			SendClientMessageToAll(HELLBLAU, "Gebe /joinsniper ein, um dem Spiel beizutreten");
-			SetTimerEx("SniperSpielVorschau",20000,false,"i",playerid);
-			SniperTimerID = SetTimerEx("FunktionSniperTimer",1000,true,"i",playerid);
-		}
 		AnzahlSniper++;
 		SetPlayerTeam(playerid,3);
 		for(new i=0;i<44;i++)
@@ -736,52 +724,6 @@ ocmd:leavesniper(playerid,params[])
 		}
         	SniperPID[SniperID[playerid]] = -2;
 		SniperID[playerid] = -1;
-	}
-	if(AnzahlSniper == 1)
-	{
-		Sniper_Timer = 180;
-	    	KillTimer(SniperTimerID);
-	    	new var = 1;
-		for(new i=1;i<14;i++)
-		{
-	        	if(SniperPunkte[SniperPID[i]] > SniperPunkte[SniperPID[var]])
-	        	{
-				var = i;
-	        	}
-		}
-		new string2[128];
-		format(string2,sizeof(string2),"%s hat die Runde mit %i Punkten gewonnen",SniperName[SniperPID[var]],SniperPunkte[SniperPID[var]]);
-		SendClientMessageToAll(HELLBLAU,string2);
-		for(new k=1; k<14; k++)
-		{
-			SniperPunkte[k] = 0;
-			if(SniperPID[k] != -2)
-			{
-				SetPlayerPos(SniperPID[k],1372.0284,-939.6686,34.1875);
-				SetPlayerVirtualWorld(SniperPID[k],0);
-				InSS[SniperPID[k]] = 0;
-				SetPlayerTeam(SniperPID[k],NO_TEAM);
-				SniperName[SniperPID[k]] = "Frei";
-				SniperPunkte[SniperPID[k]] = 0;
-				AnzahlSniper = 0;
-				ResetPlayerWeapons(SniperPID[k]);
-				new iwas = 1+k;
-				if(iwas > 3 && iwas < 17) iwas = iwas+13;
-				PlayerTextDrawSetString(SniperPID[k],PlayerText:SniperTextDraw[SniperPID[k]][iwas],"Frei");
-				PlayerTextDrawSetString(SniperPID[k],PlayerText:SniperTextDraw[SniperPID[k]][27+k],"0");
-				for(new i=0;i<44;i++)
-				{
-					PlayerTextDrawHide(SniperPID[k],PlayerText:SniperTextDraw[SniperPID[k]][i]);
-				}
-				SniperID[SniperPID[k]] = -1;
-				SniperPID[k] = -2;
-			}
-			for(new a=0; a < 50; a++)
-			{
-			    DestroyActor(ActorIDs[a]);
-			}
-	        DestroyActor(TargetActor);
-		}
 	}
 	return 1;
 }
@@ -845,7 +787,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					SendClientMessageToAll(HELLBLAU, "Gebe /joinsniper ein, um dem Spiel beizutreten");
 					SendClientMessage(playerid,HELLBLAU,"Das Spiel startet in 20 Sekunden");
 					SetTimerEx("SniperSpielVorschau",20000,false,"i",playerid);
-					SniperTimerID = SetTimerEx("FunktionSniperTimer",1000,true,"i",playerid);
+					SetTimerEx("FunktionSniperTimer",1000,false,"i",playerid);
 				}
 				AnzahlSniper++;
 				SetPlayerTeam(playerid,3);
