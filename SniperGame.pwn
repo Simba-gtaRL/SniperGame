@@ -157,7 +157,6 @@ public FunktionSniperTimer(playerid)
 
 public SniperTextDrawsLaden(playerid)
 {
-	//Textdraws Sniper
 	SniperTextDraw[playerid][0] = CreatePlayerTextDraw(playerid,2.000000, 117.199905, "_~n~~n~~n~~n~~n~~n~~n~~n~~n~~n~~n~~n~~n~~n~~n~~n~~n~~n~~n~");
 	PlayerTextDrawLetterSize(playerid,SniperTextDraw[playerid][0], 0.400000, 1.600000);
 	PlayerTextDrawTextSize(playerid,SniperTextDraw[playerid][0], 94.000000, 0.000000);
