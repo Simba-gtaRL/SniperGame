@@ -637,7 +637,7 @@ public SniperTextDrawsLaden(playerid)
 	PlayerTextDrawSetProportional(playerid,SniperTextDraw[playerid][42], 1);
 	PlayerTextDrawSetShadow(playerid,SniperTextDraw[playerid][42], 0);
 
-	SniperTextDraw[playerid][43] = CreatePlayerTextDraw(playerid,323.500000, 13.622230, "180");
+	SniperTextDraw[playerid][43] = CreatePlayerTextDraw(playerid,323.500000, 13.622230, "200");
 	PlayerTextDrawLetterSize(playerid,SniperTextDraw[playerid][43], 0.400000, 1.600000);
 	PlayerTextDrawAlignment(playerid,SniperTextDraw[playerid][43], 2);
 	PlayerTextDrawColor(playerid,SniperTextDraw[playerid][43], 16777215);
