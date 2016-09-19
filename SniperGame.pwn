@@ -864,20 +864,12 @@ public SniperSpielVorschau(playerid)
 		ActorSkins[i] = random(310);
 		for(new k=0; k != i; k++)
 		{
-			if(ActorSkins[i] == ActorSkins[k])
+			for(new h=0;h<50;h++)
 			{
-   				ActorSkins[i]++;
-			}
-			if(ActorSkins[i]+1 == ActorSkins[k])
-			{
-			    	ActorSkins[i]++;
-			    	ActorSkins[i]++;
-			}
-			if(ActorSkins[i]+2 == ActorSkins[k])
-			{
-			    	ActorSkins[i]++;
-			    	ActorSkins[i]++;
-			    	ActorSkins[i]++;
+				if(ActorSkins[i] == ActorSkins[k])
+				{
+	   				ActorSkins[i]++;
+				}
 			}
 		}
 		if(ActorSkins[i] == RandomTargetActorSkin)
