@@ -78,14 +78,25 @@ new Float:RandomActorSpawns[50][3] =
 };
 
 //Dialoge
-#define SNIPER 3
-#define SNIPER2 4
+#define SNIPER 2971 //change the defineIDs if they match with some of your script
+#define SNIPER2 2972
 
 public OnGameModeInit()
 {
-   	Sniper_Spiel = CreatePickup(1313,1,1369.9866,-949.9156,34.1931,-1);
-   	Create3DTextLabel("Sniper",GRAUWEISS,1369.9866,-949.9156,34.5000,30,0,0);
+    Sniper_Spiel = CreatePickup(1313,1,1369.9866,-949.9156,34.1931,-1);
+    Create3DTextLabel("Sniper",GRAUWEISS,1369.9866,-949.9156,34.5000,30,0,0);
+    strini(SniperID,MAX_PLAYERS,-1);
+    strini(SniperPID,15,-2);
 	return 1;
+}
+
+stock strini(string[],endpos,input)
+{
+	for(new s=0;s<endpos;s++)
+	{
+	    string[s] = input;
+	}
+	return string;
 }
 
 public FunktionSniperTimer(playerid)
@@ -685,29 +696,37 @@ ocmd:joinsniper(playerid,params[])
 		{
 		    GetPlayerWeaponData(playerid,i,SniperWaffenInfo[playerid][i][0],SniperWaffenInfo[playerid][i][1]);
 		}
+        	GivePlayerWeapon(playerid,34,1000);
 		SetPlayerPos(playerid,1544.6697,-1340.0653,328.2372);
 		SetPlayerFacingAngle(playerid,0.5248);
 		SetPlayerVirtualWorld(playerid,2);
 		CallLocalFunction("SniperTextDrawsLaden","i",playerid);
 		InSS[playerid] = 1;
+		SniperID[playerid] = 1+AnzahlSniper;
+		SniperPID[SniperID[playerid]] = playerid;
 		GetPlayerName(playerid,SniperName[playerid],sizeof(SniperName));
 		AnzahlSniper++;
 		SetPlayerTeam(playerid,3);
 		for(new i=0;i<44;i++)
 		{
-			PlayerTextDrawShow(playerid,PlayerText:SniperTextDraw[playerid][i]);
+			PlayerTextDrawShow(playerid,SniperTextDraw[playerid][i]);
 		}
-		new string[24+MAX_PLAYER_NAME];
-		format(string,sizeof(string),"%s",SniperName[playerid]);
-		new iwas = 1+SniperID[playerid];
-		if(iwas > 3 && iwas < 17) iwas = iwas+13;
-		for(new s=0;s<14;s++)
+		for(new s=1;s<1+AnzahlSniper;s++)
 		{
-			PlayerTextDrawSetString(SniperPID[s],PlayerText:SniperTextDraw[SniperPID[s]][iwas],string);
+			for(new k=1;k<1+AnzahlSniper;k++)
+			{
+			 	if(SniperPID[s] != -2 && SniperPID[k] != -2)
+				{
+					new iwas = 1+SniperID[SniperPID[k]];
+					if(iwas > 3 && iwas < 17) iwas = iwas+13;
+					PlayerTextDrawSetString(SniperPID[s],PlayerText:SniperTextDraw[SniperPID[s]][iwas],SniperName[SniperPID[k]]);
+				}
+			}
 		}
 	}
 	return 1;
 }
+
 
 
 ocmd:leavesniper(playerid,params[])
@@ -778,10 +797,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if(AnzahlSniper < 11)
 			{
 				SetPlayerPos(playerid,1544.6697,-1340.0653,328.2372);
-				CallLocalFunction("SniperTextDrawsLaden","i",playerid);
 		 		SetPlayerFacingAngle(playerid,0.5248);
 		 		SetPlayerVirtualWorld(playerid,2);
-		 		for (new i = 0; i < 13; i++)
+		 		CallLocalFunction("SniperTextDrawsLaden","i",playerid);
+ 				for (new i = 0; i < 13; i++)
 				{
 				    GetPlayerWeaponData(playerid,i,SniperWaffenInfo[playerid][i][0],SniperWaffenInfo[playerid][i][1]);
 				}
@@ -794,7 +813,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					Sniper_Timer = 200;
 					for(new i=0; i < 50; i++)
 					{
-			    		DestroyActor(ActorIDs[i]);
+			    			DestroyActor(ActorIDs[i]);
 					}
             				DestroyActor(TargetActor);
 					new string[24+MAX_PLAYER_NAME];
@@ -805,22 +824,23 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					SendClientMessage(playerid,HELLBLAU,"Das Spiel startet in 20 Sekunden");
 					SetTimerEx("SniperSpielVorschau",20000,false,"i",playerid);
 					SetTimerEx("FunktionSniperTimer",1000,false,"i",playerid);
-				}
+   	 			}
 				AnzahlSniper++;
 				SetPlayerTeam(playerid,3);
 				for(new i=0;i<44;i++)
 				{
 					PlayerTextDrawShow(playerid,SniperTextDraw[playerid][i]);
 				}
-				new string[24+MAX_PLAYER_NAME];
-				format(string,sizeof(string),"%s",SniperName[playerid]);
 				for(new s=1;s<1+AnzahlSniper;s++)
 				{
-					if(SniperPID[s] != -2)
+					for(new k=1;k<1+AnzahlSniper;k++)
 					{
-						new iwas = 1+s;
-						if(iwas > 3 && iwas < 17) iwas = iwas+13;
-						PlayerTextDrawSetString(SniperPID[s],PlayerText:SniperTextDraw[SniperPID[s]][iwas],string);
+					 	if(SniperPID[s] != -2 && SniperPID[k] != -2)
+						{
+							new iwas = 1+SniperID[SniperPID[k]];
+							if(iwas > 3 && iwas < 17) iwas = iwas+13;
+							PlayerTextDrawSetString(SniperPID[s],PlayerText:SniperTextDraw[SniperPID[s]][iwas],SniperName[SniperPID[k]]);
+						}
 					}
 				}
 			}
