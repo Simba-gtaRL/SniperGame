@@ -957,7 +957,7 @@ public OnPlayerGiveDamageActor(playerid, damaged_actorid, Float: amount, weaponi
 	format(string,sizeof(string),"%i",SniperPunkte[playerid]);
 	for(new s=1;s<14;s++)
 	{
-		if(SniperPID[s] != -2)PlayerTextDrawSetString(SniperPID[s],PlayerText:SniperTextDraw[SniperPID[s]][27+AnzahlSniper],string);
+		if(SniperPID[s] != -2)PlayerTextDrawSetString(SniperPID[s],PlayerText:SniperTextDraw[SniperPID[s]][27+SniperID[playerid],string);
 	}
 	return 1;
 }
